@@ -6,14 +6,11 @@ body{
 
 .bankrupt{
   background: url('../images/gone.gif');
-  background-size: contain;
-  background-repeat: no-repeat;
   height: 100%;
   width: 100%;
-  left: 10%;
-  top: 0;
   position: absolute;
   display: none;
+  background-size: cover;
 }
 
 

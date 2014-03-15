@@ -47,12 +47,8 @@
         this.set('dealerScore', this.get('dealerScore') + 1);
         alert('player loses!');
       }
-      if (this.get('chips') === 0) {
-        return $(".bankrupt").css("display", "block");
-      } else {
-        this.newGame();
-        return this.setListeners();
-      }
+      this.newGame();
+      return this.setListeners();
     };
 
     App.prototype.newGame = function() {
