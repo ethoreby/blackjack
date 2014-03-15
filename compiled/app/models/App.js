@@ -9,6 +9,7 @@
 
     function App() {
       this.gameover = __bind(this.gameover, this);
+      this.bet = __bind(this.bet, this);
       return App.__super__.constructor.apply(this, arguments);
     }
 
@@ -19,7 +20,14 @@
       this.set('dealerHand', deck.dealDealer());
       this.set('playerScore', 0);
       this.set('dealerScore', 0);
+      this.set('chips', 1000000);
+      this.set('pot', 0);
       return this.setListeners();
+    };
+
+    App.prototype.bet = function(raise) {
+      this.set('pot', this.get('pot') + raise);
+      return this.set('chips', this.get('chips') - raise);
     };
 
     App.prototype.gameover = function(playerVictory) {

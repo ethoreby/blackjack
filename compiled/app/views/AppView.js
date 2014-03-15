@@ -10,7 +10,7 @@
       return AppView.__super__.constructor.apply(this, arguments);
     }
 
-    AppView.prototype.template = _.template('<button class="hit-button">Hit</button> <button class="stand-button">Stand</button> <span class="playerScore"></span> <span class="dealerScore"></span> <div class="player-hand-container"></div> <div class="dealer-hand-container"></div>');
+    AppView.prototype.template = _.template('<button class="hit-button">Hit</button> <button class="stand-button">Stand</button> <span class="playerScore"></span> <span class="dealerScore"></span><br/> <span class="chips"></span> <button class="bet10k">Bet 10,000</button> <button class="bet50k">Bet 50,000</button> <button class="bet100k">Bet 100,000</button> <span class="pot"></span> <div class="player-hand-container"></div> <div class="dealer-hand-container"></div>');
 
     AppView.prototype.events = {
       "click .hit-button": function() {
@@ -18,6 +18,15 @@
       },
       "click .stand-button": function() {
         return this.model.get('playerHand').stand();
+      },
+      "click .bet10k": function() {
+        return this.model.bet(10000);
+      },
+      "click .bet50k": function() {
+        return this.model.bet(50000);
+      },
+      "click .bet100k": function() {
+        return this.model.bet(100000);
       }
     };
 
@@ -33,6 +42,8 @@
     AppView.prototype.render = function() {
       this.$el.children().detach();
       this.$el.html(this.template());
+      this.$('.chips').html('Chips: ' + this.model.attributes.chips);
+      this.$('.pot').html('Pot: ' + this.model.attributes.pot);
       this.$('.playerScore').html('Player Score: ' + this.model.attributes.playerScore);
       this.$('.dealerScore').html('Dealer Score: ' + this.model.attributes.dealerScore);
       this.$('.player-hand-container').html(new HandView({

@@ -7,13 +7,14 @@ class window.App extends Backbone.Model
     @set 'dealerHand', deck.dealDealer()
     @set 'playerScore', 0
     @set 'dealerScore', 0
-
-    # Listen for stand
-
+    @set 'chips', 1000000
+    @set 'pot', 0
 
     @setListeners()
 
-
+  bet: (raise) =>
+    @set 'pot', @get('pot') + raise
+    @set 'chips', @get('chips') - raise
 
   gameover: (playerVictory)=>
     if playerVictory is null

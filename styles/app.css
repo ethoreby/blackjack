@@ -26,3 +26,7 @@ body{
 .hand {
   overflow: auto;
 }
+
+.chips {
+  width: 150px;
+}
