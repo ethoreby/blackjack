@@ -8,6 +8,7 @@
     __extends(App, _super);
 
     function App() {
+      this.setBet = __bind(this.setBet, this);
       this.gameover = __bind(this.gameover, this);
       this.bet = __bind(this.bet, this);
       return App.__super__.constructor.apply(this, arguments);
@@ -97,6 +98,14 @@
           return _this.gameover(null);
         };
       })(this));
+    };
+
+    App.prototype.setBet = function() {
+      var player;
+      this.get('playerHand').at(0).flip();
+      this.get('playerHand').at(1).flip();
+      player = this.get('playerHand');
+      return player.set('startGame', true);
     };
 
     return App;

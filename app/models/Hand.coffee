@@ -2,17 +2,20 @@ class window.Hand extends Backbone.Collection
 
   model: Card
 
-  initialize: (array, @deck, @isDealer) ->
+  initialize: (array, @deck, @isDealer, @startGame = false) ->
+    console.log @
 
   hit: ->
-    @add(@deck.pop()).last()
-    if @isDealer is undefined
-      currScore = @currentScore(@scores())
-      if currScore > 21
-        @bust()
+    if @startGame is true
+      @add(@deck.pop()).last()
+      if @isDealer is undefined
+        currScore = @currentScore(@scores())
+        if currScore > 21
+          @bust()
 
-
-  stand: -> @trigger('stand', @)
+  stand: ->
+    if @startGame is true
+     @trigger('stand', @)
 
   play: (playerScore)->
     @at(0).flip() if !@at(0).attributes.revealed

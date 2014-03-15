@@ -23,7 +23,7 @@
 
     Deck.prototype.dealPlayer = function() {
       var hand;
-      return hand = new Hand([this.pop(), this.pop()], this);
+      return hand = new Hand([this.pop().flip(), this.pop().flip()], this);
     };
 
     Deck.prototype.dealDealer = function() {

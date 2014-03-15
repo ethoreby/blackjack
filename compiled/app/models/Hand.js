@@ -12,24 +12,30 @@
 
     Hand.prototype.model = Card;
 
-    Hand.prototype.initialize = function(array, deck, isDealer) {
+    Hand.prototype.initialize = function(array, deck, isDealer, startGame) {
       this.deck = deck;
       this.isDealer = isDealer;
+      this.startGame = startGame != null ? startGame : false;
+      return console.log(this);
     };
 
     Hand.prototype.hit = function() {
       var currScore;
-      this.add(this.deck.pop()).last();
-      if (this.isDealer === void 0) {
-        currScore = this.currentScore(this.scores());
-        if (currScore > 21) {
-          return this.bust();
+      if (this.startGame === true) {
+        this.add(this.deck.pop()).last();
+        if (this.isDealer === void 0) {
+          currScore = this.currentScore(this.scores());
+          if (currScore > 21) {
+            return this.bust();
+          }
         }
       }
     };
 
     Hand.prototype.stand = function() {
-      return this.trigger('stand', this);
+      if (this.startGame === true) {
+        return this.trigger('stand', this);
+      }
     };
 
     Hand.prototype.play = function(playerScore) {

@@ -8,8 +8,9 @@ class window.AppView extends Backbone.View
     <button class="bet10k">Bet 10,000</button>
     <button class="bet50k">Bet 50,000</button>
     <button class="bet100k">Bet 100,000</button>
-    <button class="betAll">All In</button>
+    <button class="betAll">All In</button><br/>
     <span class="pot"></span>
+    <button class="setBet">Set Bet and Play</button>
     <div class="player-hand-container"></div>
     <div class="dealer-hand-container"></div>
   '
@@ -21,6 +22,7 @@ class window.AppView extends Backbone.View
     "click .bet50k": -> @model.bet(50000)
     "click .bet100k": -> @model.bet(100000)
     "click .betAll": -> @model.bet()
+    "click .setBet": -> @model.setBet();
 
   initialize: ->
     @render()

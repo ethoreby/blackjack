@@ -10,7 +10,7 @@
       return AppView.__super__.constructor.apply(this, arguments);
     }
 
-    AppView.prototype.template = _.template('<button class="hit-button">Hit</button> <button class="stand-button">Stand</button> <span class="playerScore"></span> <span class="dealerScore"></span><br/> <span class="chips"></span> <button class="bet10k">Bet 10,000</button> <button class="bet50k">Bet 50,000</button> <button class="bet100k">Bet 100,000</button> <button class="betAll">All In</button> <span class="pot"></span> <div class="player-hand-container"></div> <div class="dealer-hand-container"></div>');
+    AppView.prototype.template = _.template('<button class="hit-button">Hit</button> <button class="stand-button">Stand</button> <span class="playerScore"></span> <span class="dealerScore"></span><br/> <span class="chips"></span> <button class="bet10k">Bet 10,000</button> <button class="bet50k">Bet 50,000</button> <button class="bet100k">Bet 100,000</button> <button class="betAll">All In</button><br/> <span class="pot"></span> <button class="setBet">Set Bet and Play</button> <div class="player-hand-container"></div> <div class="dealer-hand-container"></div>');
 
     AppView.prototype.events = {
       "click .hit-button": function() {
@@ -30,6 +30,9 @@
       },
       "click .betAll": function() {
         return this.model.bet();
+      },
+      "click .setBet": function() {
+        return this.model.setBet();
       }
     };
 

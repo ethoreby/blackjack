@@ -9,7 +9,6 @@ class window.App extends Backbone.Model
     @set 'dealerScore', 0
     @set 'chips', 1000000
     @set 'pot', 0
-
     @setListeners()
 
   bet: (raise) =>
@@ -70,4 +69,12 @@ class window.App extends Backbone.Model
     @get 'dealerHand'
       .on 'tie', =>
         @gameover(null)
+
+  setBet: =>
+    @get('playerHand').at(0).flip()
+    @get('playerHand').at(1).flip()
+    # debugger;
+    player = @get('playerHand')
+    player.set 'startGame', true
+
 
