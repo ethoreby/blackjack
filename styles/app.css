@@ -1,14 +1,26 @@
+body{
+  background: url("../images/Blackjack_board.png");
+  background-size: cover;
+  color: white;
+}
+
 .card {
   float: left;
+  background-color: white;
   border: solid 1px black;
   width: 100px;
   border-radius: 5px;
   height: 140px;
   margin-right: 20px;
+  color: black;
+  text-align: center;
 }
 
 .covered {
-  background-color: black;
+  color: black;
+  text-align: center;
+  background-color: rgba(0,0,0,1);
+  border: 1px solid white;
 }
 
 .hand {
