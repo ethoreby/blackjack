@@ -18,7 +18,14 @@
     };
 
     Hand.prototype.hit = function() {
-      return this.add(this.deck.pop()).last();
+      var currScore;
+      this.add(this.deck.pop()).last();
+      if (this.isDealer === void 0) {
+        currScore = this.currentScore(this.scores());
+        if (currScore > 21) {
+          return this.bust();
+        }
+      }
     };
 
     Hand.prototype.stand = function() {
@@ -30,9 +37,7 @@
       if (!this.at(0).attributes.revealed) {
         this.at(0).flip();
       }
-      console.log(this.at(0).attributes.revealed);
       dealerScore = this.currentScore(this.scores());
-      console.log(dealerScore);
       if (dealerScore > 21) {
         return this.bust();
       } else if (dealerScore < 17) {

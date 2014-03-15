@@ -5,32 +5,55 @@ class window.App extends Backbone.Model
     @set 'deck', deck = new Deck()
     @set 'playerHand', deck.dealPlayer()
     @set 'dealerHand', deck.dealDealer()
+    @set 'playerScore', 0
+    @set 'dealerScore', 0
 
     # Listen for stand
+
+
+    @setListeners()
+
+
+
+  gameover: (playerVictory)=>
+    if playerVictory is null
+      alert 'tie'
+    else if playerVictory is true
+      @set 'playerScore', @get('playerScore') + 1
+      alert 'player wins!'
+    else
+      @set 'dealerScore', @get('dealerScore') + 1
+      alert 'player loses!'
+    @set 'deck', deck = new Deck()
+    @set 'playerHand', deck.dealPlayer()
+    @set 'dealerHand', deck.dealDealer()
+    @setListeners()
+
+  setListeners: () ->
     @get 'playerHand'
      .on 'stand', =>
       # Get player score
-      console.log "stand"
       playerHand = @get 'playerHand'
       dealer = @get 'dealerHand'
       dealer.play(playerHand.scores()[0])
 
     @get 'playerHand'
-      .on 'bust', ->
-        console.log('bust');
+      .on 'bust', =>
+        @gameover(false)
 
     @get 'dealerHand'
-      .on 'bust', ->
-        console.log('dealer busts');
+      .on 'bust', =>
+        @gameover(true)
 
     @get 'dealerHand'
       .on 'win', =>
-        console.log('win');
+        @gameover(true)
 
     @get 'dealerHand'
       .on 'loss', =>
-        console.log('loss');
+        @gameover(false)
 
     @get 'dealerHand'
       .on 'tie', =>
-        console.log('tie');
+        @gameover(null)
+
