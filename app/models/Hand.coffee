@@ -7,12 +7,31 @@ class window.Hand extends Backbone.Collection
   hit: -> @add(@deck.pop()).last()
 
   stand: -> @trigger('stand', @)
-    # Trigger stand event
-    # Switch to dealer hand
-    # Let dealer player
-    # evaluate game
 
-  play: -> console.log 'dealer is playing'
+  play: (playerScore)->
+    @at(0).flip() if !@at(0).attributes.revealed
+    console.log @at(0).attributes.revealed
+    dealerScore = @currentScore(@scores())
+    console.log dealerScore
+    if dealerScore > 21 then return @bust()
+    else if dealerScore < 17
+      @hit()
+      @play(playerScore)
+    else
+      @evalScores(dealerScore, playerScore)
+
+  currentScore: (scores) ->
+    output = scores[0]
+    for score in scores
+      output = score if score > output and score < 22
+    output
+
+  bust: -> @trigger('bust', @)
+
+  evalScores: (dealerScore, playerScore)->
+    if playerScore > dealerScore then @trigger('win', @)
+    else if playerScore < dealerScore then @trigger('loss', @)
+    else @trigger('tie', @)
 
   scores: ->
     # The scores are an array of potential scores.

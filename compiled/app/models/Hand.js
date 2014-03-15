@@ -25,8 +25,48 @@
       return this.trigger('stand', this);
     };
 
-    Hand.prototype.play = function() {
-      return console.log('dealer is playing');
+    Hand.prototype.play = function(playerScore) {
+      var dealerScore;
+      if (!this.at(0).attributes.revealed) {
+        this.at(0).flip();
+      }
+      console.log(this.at(0).attributes.revealed);
+      dealerScore = this.currentScore(this.scores());
+      console.log(dealerScore);
+      if (dealerScore > 21) {
+        return this.bust();
+      } else if (dealerScore < 17) {
+        this.hit();
+        return this.play(playerScore);
+      } else {
+        return this.evalScores(dealerScore, playerScore);
+      }
+    };
+
+    Hand.prototype.currentScore = function(scores) {
+      var output, score, _i, _len;
+      output = scores[0];
+      for (_i = 0, _len = scores.length; _i < _len; _i++) {
+        score = scores[_i];
+        if (score > output && score < 22) {
+          output = score;
+        }
+      }
+      return output;
+    };
+
+    Hand.prototype.bust = function() {
+      return this.trigger('bust', this);
+    };
+
+    Hand.prototype.evalScores = function(dealerScore, playerScore) {
+      if (playerScore > dealerScore) {
+        return this.trigger('win', this);
+      } else if (playerScore < dealerScore) {
+        return this.trigger('loss', this);
+      } else {
+        return this.trigger('tie', this);
+      }
     };
 
     Hand.prototype.scores = function() {

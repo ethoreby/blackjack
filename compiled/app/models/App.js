@@ -15,11 +15,34 @@
       this.set('deck', deck = new Deck());
       this.set('playerHand', deck.dealPlayer());
       this.set('dealerHand', deck.dealDealer());
-      return this.get('playerHand').on('stand', (function(_this) {
+      this.get('playerHand').on('stand', (function(_this) {
         return function() {
-          var dealer;
+          var dealer, playerHand;
+          console.log("stand");
+          playerHand = _this.get('playerHand');
           dealer = _this.get('dealerHand');
-          return dealer.play();
+          return dealer.play(playerHand.scores()[0]);
+        };
+      })(this));
+      this.get('playerHand').on('bust', function() {
+        return console.log('bust');
+      });
+      this.get('dealerHand').on('bust', function() {
+        return console.log('dealer busts');
+      });
+      this.get('dealerHand').on('win', (function(_this) {
+        return function() {
+          return console.log('win');
+        };
+      })(this));
+      this.get('dealerHand').on('loss', (function(_this) {
+        return function() {
+          return console.log('loss');
+        };
+      })(this));
+      return this.get('dealerHand').on('tie', (function(_this) {
+        return function() {
+          return console.log('tie');
         };
       })(this));
     };
